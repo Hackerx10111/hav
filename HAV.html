@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question For You ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff6a88, #ff99ac);
+            text-align: center;
+            color: white;
+            overflow-y: auto;
+            /* enable vertical scroll */
+            padding: 50px 20px;
+            /* add padding so card isn't stuck at top */
+        }
+        
+        .card {
+            background: rgba(0, 0, 0, 0.65);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 420px;
+            margin: 0 auto 50px auto;
+            /* center horizontally, add bottom margin */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 25px;
+            background: #ff3366;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background: #ff0033;
+            transform: scale(1.1);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        p {
+            line-height: 1.6;
+            font-size: 17px;
+        }
+        /* floating hearts */
+        
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            animation: float 6s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+        /* heart explosion */
+        
+        .explosion {
+            position: fixed;
+            font-size: 30px;
+            animation: explode 1s forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Hey Beautiful ❤️</h2>
+        <button onclick="openHeart()">Open My Heart 💌</button>
+
+        <div id="message" class="hidden">
+            <img src="hav.jpeg" alt="Her Photo">
+            <p id="typing"></p>
+            <p>So I just wanted to ask something simple…</p>
+            <h3>Would you let me be the one who calls you mine? ❤️</h3>
+            <button onclick="yesAnswer()">YES ❤️</button>
+            <button id="noBtn" onmouseover="moveNo()">NO 😅</button>
+        </div>
+    </div>
+
+    <script>
+        let text = "Here’s a little secret… I find myself smiling more often than I used to, and most of the time it’s because of you, Lesego. The little moments we’ve shared keep replaying in my mind, and each one reminds me how special you’ve become to me. Being around you feels calm, warm, and safe in a way I never expected, and it’s something I truly appreciate. You’ve slowly become someone who brightens my days without even trying, and that’s something I can’t ignore.";
+        let index = 0;
+
+        /* open heart */
+        function openHeart() {
+            document.getElementById("message").style.display = "block";
+            document.getElementById("typing").innerHTML = "";
+            index = 0;
+            typeMessage();
+        }
+
+        /* typing effect */
+        function typeMessage() {
+            if (index < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeMessage, 35);
+            }
+        }
+
+        /* floating hearts */
+        setInterval(function() {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 500);
+
+        /* NO button moves */
+        function moveNo() {
+            let button = document.getElementById("noBtn");
+            let x = (Math.random() * 200) - 100;
+            let y = (Math.random() * 200) - 100;
+            button.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        /* YES answer */
+        function yesAnswer() {
+            alert("You just made me the happiest person alive ❤️");
+            for (let i = 0; i < 25; i++) {
+                let heart = document.createElement("div");
+                heart.className = "explosion";
+                heart.innerHTML = "❤️";
+                heart.style.left = (window.innerWidth / 2) + "px";
+                heart.style.top = (window.innerHeight / 2) + "px";
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
